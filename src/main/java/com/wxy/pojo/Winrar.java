@@ -6,6 +6,9 @@ import com.github.junrar.Archive;
 import com.github.junrar.rarfile.FileHeader;
 import java.io.*;
 import java.util.Enumeration;
+
+import org.apache.tools.ant.Project;
+import org.apache.tools.ant.taskdefs.Expand;
 import org.apache.tools.zip.ZipEntry;
 import org.apache.tools.zip.ZipFile;
 /**
@@ -16,58 +19,53 @@ import org.apache.tools.zip.ZipFile;
  * @createTime 2019年10月28日 17:58:00
  */
 public class Winrar {
-    public static void unZip(File zipFile, String outDir) throws IOException {
-
-        File outFileDir = new File(outDir);
-
-        ZipFile zip = new ZipFile(zipFile);
-        for (Enumeration enumeration = zip.getEntries(); enumeration.hasMoreElements(); ) {
-            ZipEntry entry = (ZipEntry) enumeration.nextElement();
-            String zipEntryName = entry.getName();
-            InputStream in = zip.getInputStream(entry);
-
-            if (entry.isDirectory()) {      //处理压缩文件包含文件夹的情况
-                File fileDir = new File(outDir + zipEntryName);
-                fileDir.mkdir();
-                continue;
+    public static final String winrarPath = "C://Program Files//WinRAR//WinRAR.exe";
+    public static boolean unrar(String rarFile, String target) {
+        boolean bool = false;
+        File f=new File(rarFile);
+        if(!f.exists()){
+            return false;
+        }
+        String cmd = winrarPath + " X " + rarFile + " "+target;
+        try {
+            Process proc = Runtime.getRuntime().exec(cmd);
+            if (proc.waitFor() != 0) {
+                if (proc.exitValue() == 0) {
+                    bool = false;
+                }
+            } else {
+                bool = true;
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bool;
+    }
 
-            File file = new File(outDir, zipEntryName);
-            file.createNewFile();
-            OutputStream out = new FileOutputStream(file);
-            byte[] buff = new byte[1024];
-            int len;
-            while ((len = in.read(buff)) > 0) {
-                out.write(buff, 0, len);
-            }
-            in.close();
-            out.close();
+    //解压zip格式压缩包
+    private static void unzip(String sourceZip,String destDir) throws Exception{
+        try{
+            Project p = new Project();
+            Expand e = new Expand();
+            e.setProject(p);
+            e.setSrc(new File(sourceZip));
+            e.setOverwrite(false);
+            e.setDest(new File(destDir));
+            e.setEncoding("gbk");
+            e.execute();
+        }catch(Exception e){
+            throw e;
         }
     }
 
-    public static void unRar(File rarFile, String outDir) throws Exception {
-        File outFileDir = new File(outDir);
-        Archive archive = new Archive(new FileInputStream(rarFile));
-        FileHeader fileHeader = archive.nextFileHeader();
-        while (fileHeader != null) {
-            if (fileHeader.isDirectory()) {
-                fileHeader = archive.nextFileHeader();
-                continue;
-            }
-            File out = new File(outDir + fileHeader.getFileNameString());
-            if (!out.exists()) {
-                if (!out.getParentFile().exists()) {
-                    out.getParentFile().mkdirs();
-                }
-                out.createNewFile();
-            }
-            FileOutputStream os = new FileOutputStream(out);
-            archive.extractFile(fileHeader, os);
-
-            os.close();
-
-            fileHeader = archive.nextFileHeader();
-        }
-        archive.close();
+    public static void main(String[] args) throws Exception {
+        String rarFile= "C:\\Users\\Administrator\\Desktop\\驾驶舱1014.rar";
+        /*String zipFile= "D://a.zip";
+        String rartarget= "D://123//";
+        String ziptarget= "D://456//";*/
+        //unzip(zipFile, ziptarget);
+        unrar(rarFile,"C:\\Users\\Administrator\\Desktop\\hello");
+        //boolean b = unrar(rarFile, rartarget);
+        //System.out.println(b);
     }
 }
