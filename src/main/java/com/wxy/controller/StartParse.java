@@ -41,9 +41,9 @@ public class StartParse {
         File[] fs = file.listFiles();
 
         for(File f:fs){
+            String newPath ="\\" + f.getName();
             //文件
             if(f.isFile()){
-                String newPath ="\\" + f.getName();
                 path = path + newPath;
                 if(path.endsWith(".doc")){
                     //读取文件内容
@@ -51,14 +51,14 @@ public class StartParse {
                     String[] s = Word.docxGetText(path).split("\n");
                     //写入文件内容
                     Excel.WriteContent(s);
-                    return path  = path.replace(newPath,"");
+                    //return path  = path.replace(newPath,"");
                 }else if(path.endsWith(".docx")){
                     //读取文件内容
                     Word.docxGetText(path);
                     String[] s = Word.docxGetText(path).split("\n");
                     //写入文件内容
                     Excel.WriteContent(s);
-                    return path  = path.replace(newPath,"");
+                    //return path  = path.replace(newPath,"");
                 }else if(path.endsWith(".zip")){
                     Winrar.unzip(path,path.replace(newPath,""));
                     return path(path.substring(0,path.lastIndexOf(".")));
@@ -68,19 +68,12 @@ public class StartParse {
                 }
                 //目录
             }else if(f.isDirectory()){
-                String newPath ="\\" + f.getName();
                 path = path + newPath;
                 return path(path);
 
             }
+            return path = path.replace(newPath,"");
         }
-            return path;
-    }
-    public static String list(String path){
-        File file = new File(path);
-        File[] fs = file.listFiles();
-        for(File f:fs){
-
-        }
+        return path;
     }
 }
