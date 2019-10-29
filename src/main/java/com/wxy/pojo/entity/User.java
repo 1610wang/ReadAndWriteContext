@@ -7,7 +7,6 @@ public class User {
     private Integer count;  //总计
     private String muniGover; //市级委办
     private Client client; //客户
-
     public User() {
     }
 

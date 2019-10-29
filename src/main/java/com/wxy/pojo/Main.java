@@ -18,6 +18,7 @@ public class Main {
 //        }
 //        String path = "C:/Users/Administrator/Desktop/test.xls";
 //        Excel.WriteContent(s,path);
-        System.out.println(Word.getText("D:/项目/驾驶舱1014/20190301/北京政务云工作周报（20190308第160期）.docx"));
+       String buffer = Word.getText("D:/项目/驾驶舱1014/20190301/北京政务云工作周报（20190308第160期）.docx");
+       Word.splitWord(buffer);
     }
 }

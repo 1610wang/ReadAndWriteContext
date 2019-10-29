@@ -1,5 +1,8 @@
 package com.wxy.pojo;
 
+import com.wxy.pojo.entity.Client;
+import com.wxy.pojo.entity.Condition;
+import com.wxy.pojo.entity.User;
 import org.apache.poi.POIXMLDocument;
 import org.apache.poi.POIXMLTextExtractor;
 import org.apache.poi.hwpf.extractor.WordExtractor;
@@ -9,6 +12,8 @@ import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author 张虎
@@ -72,10 +77,58 @@ public class Word {
     }
 
     /**
-     * 解析Word获取所需要的内容
-     * @param word
+     *安全监控报告1
+     * @param buffer
      */
-    public static void splitWord(String word){
+    public static void getData(String buffer){
+        String[] s = buffer.split("威胁");
+        String[] s1 = s[1].split("次");
+        System.out.println(s1[0]);
+    }
 
+    /**
+     * 解析获得入云用户和系统情况
+     * @param word
+     * @return
+     */
+    public static Condition splitWord(String word){
+        Condition condition = new Condition();
+        User user = new User();
+        Client client = new Client();
+        String[] temp = word.split("\n");
+        String[] strings = temp[5].split("[（]");
+        String regEx="[^0-9]";
+        Pattern p = Pattern.compile(regEx);
+        //新增业务系统
+        Matcher m = p.matcher(temp[7]);
+        condition.setNewServiceSys(m.replaceAll("").trim());
+        //市级委办局数量
+        m = p.matcher(strings[0]);
+        user.setMuniGover(m.replaceAll("").trim());
+        //详细用户数量
+        String clientString = strings[1].split("[）]")[0];
+        String[] clients = clientString.split("，");
+        m = p.matcher(clients[0]);
+        client.setTjCloud(m.replaceAll("").trim());
+        m = p.matcher(clients[1]);
+        client.setJsCloud(m.replaceAll("").trim());
+        m = p.matcher(clients[2]);
+        client.setSxCloud(m.replaceAll("").trim());
+        m = p.matcher(clients[3]);
+        client.setLtCloud(m.replaceAll("").trim());
+        m = p.matcher(clients[4]);
+        client.setLcCloud(m.replaceAll("").trim());
+        //新增委办局
+        m = p.matcher(temp[6]);
+        condition.setNewOffice(m.replaceAll("").trim());
+        //新上线系统
+        m = p.matcher(temp[18]);
+        condition.setNewOnlineSys(m.replaceAll("".trim()));
+        //退出业务系统
+        m = p.matcher(temp[19]);
+        condition.setExitSys(m.replaceAll("").trim());
+        condition.setUser(user);
+        user.setClient(client);
+        return condition;
     }
 }
