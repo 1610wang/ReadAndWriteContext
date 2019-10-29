@@ -44,7 +44,7 @@ public class Winrar {
     }
 
     //解压zip格式压缩包
-    private static void unzip(String sourceZip,String destDir) throws Exception{
+    public static void unzip(String sourceZip,String destDir) throws Exception{
         try{
             Project p = new Project();
             Expand e = new Expand();

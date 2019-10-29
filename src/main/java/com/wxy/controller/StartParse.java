@@ -5,6 +5,8 @@ import com.wxy.pojo.Winrar;
 import com.wxy.pojo.Word;
 
 import java.io.File;
+import java.util.List;
+
 /**
  * @author 王鑫垚
  * @version 1.0.0
@@ -73,5 +75,12 @@ public class StartParse {
             }
         }
             return path;
+    }
+    public static String list(String path){
+        File file = new File(path);
+        File[] fs = file.listFiles();
+        for(File f:fs){
+
+        }
     }
 }

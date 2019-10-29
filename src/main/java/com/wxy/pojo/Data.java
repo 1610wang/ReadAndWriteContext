@@ -7,5 +7,6 @@ import lombok.Setter;
 @Setter
 public class Data {
 
-    private String key;
+    private String name;
+    //private School school;
 }
