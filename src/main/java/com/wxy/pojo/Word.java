@@ -23,7 +23,7 @@ public class Word {
      * @param path
      * @return
      */
-    public String docGetText(String path){
+    public static String docGetText(String path){
         String buffer = "";
         try {
                 InputStream is = new FileInputStream(new File(path));
@@ -42,7 +42,7 @@ public class Word {
      * @param path
      * @return
      */
-    public String docxGetText(String path){
+    public static String docxGetText(String path){
         String buffer = "";
 
         try {
@@ -61,7 +61,7 @@ public class Word {
      * @param path
      * @return
      */
-    public String getText(String path){
+    public static String getText(String path){
         if(path.endsWith(".doc")){
             return docGetText(path);
         }else if(path.endsWith("docx")){
@@ -75,7 +75,7 @@ public class Word {
      * 解析Word获取所需要的内容
      * @param word
      */
-    public void splitWord(String word){
+    public static void splitWord(String word){
 
     }
 }

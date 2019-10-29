@@ -12,13 +12,14 @@ import org.apache.tools.ant.taskdefs.Expand;
 import org.apache.tools.zip.ZipEntry;
 import org.apache.tools.zip.ZipFile;
 /**
- * @author 张虎
+ * @author 王鑫垚
  * @version 1.0.0
  * @ClassName Winrar
  * @Description TODO
- * @createTime 2019年10月28日 17:58:00
+ * @createTime 2019年10月28日 18:52:00
  */
 public class Winrar {
+
     public static final String winrarPath = "C://Program Files//WinRAR//WinRAR.exe";
     public static boolean unrar(String rarFile, String target) {
         boolean bool = false;
@@ -60,9 +61,9 @@ public class Winrar {
 
     public static void main(String[] args) throws Exception {
         String rarFile= "C:\\Users\\Administrator\\Desktop\\驾驶舱1014.rar";
-        /*String zipFile= "D://a.zip";
+        String zipFile= "D://a.zip";
         String rartarget= "D://123//";
-        String ziptarget= "D://456//";*/
+        String ziptarget= "D://456//";
         //unzip(zipFile, ziptarget);
         unrar(rarFile,"C:\\Users\\Administrator\\Desktop\\hello");
         //boolean b = unrar(rarFile, rartarget);
