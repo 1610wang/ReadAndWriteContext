@@ -80,10 +80,20 @@ public class Word {
      *安全监控报告1
      * @param buffer
      */
-    public static void getData(String buffer){
+    public static String getData(String buffer){
         String[] s = buffer.split("威胁");
         String[] s1 = s[1].split("次");
         System.out.println(s1[0]);
+        return s1[0];
+    }
+
+    /*
+    * 安全监控报告
+    * */
+    public static String getTime(String path){
+        File file = new File(path);
+        String fileName = file.getName();
+        return fileName;
     }
 
     /**
