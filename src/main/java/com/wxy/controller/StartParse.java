@@ -50,14 +50,14 @@ public class StartParse {
                     Word.docGetText(path);
                     String[] s = Word.docxGetText(path).split("\n");
                     //写入文件内容
-                    Excel.WriteContent(s);
+                    Excel.WriteContent(s,"");
                     //return path  = path.replace(newPath,"");
                 }else if(path.endsWith(".docx")){
                     //读取文件内容
                     Word.docxGetText(path);
                     String[] s = Word.docxGetText(path).split("\n");
                     //写入文件内容
-                    Excel.WriteContent(s);
+                    Excel.WriteContent(s,"");
                     //return path  = path.replace(newPath,"");
                 }else if(path.endsWith(".zip")){
                     Winrar.unzip(path,path.replace(newPath,""));
