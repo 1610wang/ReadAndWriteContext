@@ -1,11 +1,14 @@
 package com.wxy.pojo;
 
+import com.wxy.pojo.entity.Serurity;
+import com.wxy.pojo.entity.Weekly;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.util.CellRangeAddress;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 
 /**
@@ -18,51 +21,51 @@ import java.io.IOException;
 public class Excel {
     /**
      *  创建一个excel文件并将分析内容写入其中
-     * @param s 分析所得内容
      * @param path excel文件目标地址
      */
-    public static void WriteContent(String[] s,String path){
+    public static void WriteContent(List<Weekly> weeklies, List<Serurity> serurities,String path){
         //第一步，创建一个workbook对应一个excel文件
         HSSFWorkbook workbook = new HSSFWorkbook();
         //入云用户和系统情况
         HSSFSheet sheet1 = creatFirSheet(workbook);
+        int i = 4;
+        for(Weekly weekly : weeklies){
+            HSSFRow row1 = sheet1.createRow(i + 1);
+            row1.createCell(0).setCellValue(weekly.getDateTime());
+            row1.createCell(1).setCellValue(weekly.getCondition().getUser().getMuniGover());
+            row1.createCell(3).setCellValue(weekly.getCondition().getUser().getClient().getTjCloud());
+            row1.createCell(4).setCellValue(weekly.getCondition().getUser().getClient().getJsCloud());
+            row1.createCell(5).setCellValue(weekly.getCondition().getUser().getClient().getSxCloud());
+            row1.createCell(6).setCellValue(weekly.getCondition().getUser().getClient().getLtCloud());
+            row1.createCell(7).setCellValue(weekly.getCondition().getUser().getClient().getLcCloud());
+            row1.createCell(8).setCellValue(weekly.getCondition().getUser().getClient().getDxCloud());
+            row1.createCell(16).setCellValue(weekly.getCondition().getNewOffice());
+            row1.createCell(17).setCellValue(weekly.getCondition().getNewServiceSys());
+            row1.createCell(16).setCellValue(weekly.getCondition().getNewOnlineSys());
+            row1.createCell(16).setCellValue(weekly.getCondition().getExitSys());
+            i++;
+        }
         //资源使用情况
         HSSFSheet sheet2 =creatSecSheet(workbook);
         //云内系统排名时间时间
         String[] cellNames = {"时间（周）","系统访问总量前10名"};
         HSSFSheet sheet3 = creatSheet(workbook,"云内系统排名时间时间",cellNames);
-        int i = 0;
-        for(String entity : s){
-            HSSFRow row1 = sheet3.createRow(i + 1);
-            row1.createCell(0).setCellValue(entity);
-            row1.createCell(1).setCellValue(entity);
-            row1.createCell(2).setCellValue(entity);
-            i++;
-        }
+
         //安全监控报告1
         String[] cellName = {"时间（天）","受攻击威胁次数"};
         HSSFSheet sheet4 = creatSheet(workbook,"安全监控报告1",cellName);
        //写入数据
         i = 0;
-        for(String entity : s){
+        for(Serurity serurity :serurities){
             HSSFRow row1 = sheet4.createRow(i + 1);
-            row1.createCell(0).setCellValue(entity);
-            row1.createCell(1).setCellValue(entity);
-            row1.createCell(2).setCellValue(entity);
+            row1.createCell(0).setCellValue(serurity.getTime());
+            row1.createCell(1).setCellValue(serurity.getCount());
             i++;
         }
         //安全监控报告2
         String[] celln = {"时间（周）","单位","受攻击次数"};
         HSSFSheet sheet5 = creatSheet(workbook,"安全监控报告2",cellName);
-        //写入数据
-        i = 0;
-        for(String entity : s){
-            HSSFRow row1 = sheet5.createRow(i + 1);
-            row1.createCell(0).setCellValue(entity);
-            row1.createCell(1).setCellValue(entity);
-            row1.createCell(2).setCellValue(entity);
-            i++;
-        }
+
         try {
             FileOutputStream fos = new FileOutputStream(path);
             workbook.write(fos);

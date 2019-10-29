@@ -80,7 +80,7 @@ public class Word {
      *安全监控报告1
      * @param buffer
      */
-    public static String getData(String buffer){
+    public static String getCount(String buffer){
         String[] s = buffer.split("威胁");
         String[] s1 = s[1].split("次");
         System.out.println(s1[0]);
@@ -118,6 +118,9 @@ public class Word {
         //详细用户数量
         String clientString = strings[1].split("[）]")[0];
         String[] clients = clientString.split("，");
+        if(clients.length == 1){
+            clients = clientString.split("、");
+        }
         m = p.matcher(clients[0]);
         client.setTjCloud(m.replaceAll("").trim());
         m = p.matcher(clients[1]);
