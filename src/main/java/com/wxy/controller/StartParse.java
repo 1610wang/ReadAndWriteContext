@@ -1,5 +1,6 @@
 package com.wxy.controller;
 
+import com.wxy.pojo.Excel;
 import com.wxy.pojo.Winrar;
 import com.wxy.pojo.Word;
 
@@ -13,15 +14,15 @@ import java.io.File;
  */
 public class StartParse {
 
-    public static void main(String[] args) {
-
-        String OrginPath = "C:\\Users\\Administrator\\Desktop\\驾驶舱1014.rar";//根目录
-
-        String ClassName = "驾驶舱1014";//文件名
-
-        String pathOut = "C:\\Users\\Administrator\\Desktop\\hello"; //输出目录地址
-
-        Winrar.unrar(OrginPath,pathOut);/*解析压缩包*/
+    public static void main(String[] args) throws Exception {
+        //根目录
+        String OrginPath = "C:\\Users\\Administrator\\Desktop\\驾驶舱1014.rar";
+        //文件名
+        String ClassName = "驾驶舱1014";
+        //输出目录地址
+        String pathOut = "C:\\Users\\Administrator\\Desktop\\hello";
+        /*解析压缩包*/
+        Winrar.unrar(OrginPath,pathOut);
 
         System.out.println(pathOut+"\\"+ClassName);
 
@@ -29,41 +30,46 @@ public class StartParse {
 
         path(s);
 
-
-
     }
 
-    public static String path(String path){
+    public static String path(String path) throws Exception {
 
         System.out.println("path:"+path);
         File file = new File(path);
         File[] fs = file.listFiles();
+
         for(File f:fs){
-            if(f.isFile()){//文件
+            //文件
+            if(f.isFile()){
                 String newPath ="\\" + f.getName();
                 path = path + newPath;
                 if(path.endsWith(".doc")){
+                    //读取文件内容
                     Word.docGetText(path);
-                    path  = path.replace(newPath,"");
+                    String[] s = Word.docxGetText(path).split("\n");
+                    //写入文件内容
+                    Excel.WriteContent(s);
+                    return path  = path.replace(newPath,"");
                 }else if(path.endsWith(".docx")){
+                    //读取文件内容
                     Word.docxGetText(path);
-                    path  = path.replace(newPath,"");
+                    String[] s = Word.docxGetText(path).split("\n");
+                    //写入文件内容
+                    Excel.WriteContent(s);
+                    return path  = path.replace(newPath,"");
+                }else if(path.endsWith(".zip")){
+                    Winrar.unzip(path,path.replace(newPath,""));
+                    return path(path.substring(0,path.lastIndexOf(".")));
+                }else if(path.endsWith(".rar")){
+                    Winrar.unrar(path,path.replace(newPath,""));
+                    return path(path.substring(0,path.lastIndexOf(".")));
                 }
-            }else if(f.isDirectory()){//目录
+                //目录
+            }else if(f.isDirectory()){
                 String newPath ="\\" + f.getName();
                 path = path + newPath;
                 return path(path);
 
-            }else {//压缩包
-                String newPath = "\\" +f.getName();
-                path = path + newPath;
-                if(path.endsWith(".zip")){
-
-                }else if(path.endsWith(".rar")){
-                    //Winrar.unrar(path,)
-                }
-                path  = path.replace(newPath,"");
-                return path(path);
             }
         }
             return path;
