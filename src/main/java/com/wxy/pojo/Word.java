@@ -64,8 +64,8 @@ public class Word {
     public static String getText(String path){
         if(path.endsWith(".doc")){
             return docGetText(path);
-        }else if(path.endsWith("docx")){
-            return docxGetText(docxGetText(path));
+        }else if(path.endsWith(".docx")){
+            return docxGetText(path);
         }else {
             return "这个文件不是word文件";
         }
