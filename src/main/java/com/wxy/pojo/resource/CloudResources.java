@@ -1,6 +1,7 @@
 package com.wxy.pojo.resource;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -11,93 +12,84 @@ import java.util.List;
  * @Version 1.0
  */
 public class CloudResources {
-    List tjCloud = new ArrayList<String>();//太极云
-    List jsCloud = new ArrayList<String>();//金山云
-    List sxCloud = new ArrayList<String>();//首信云
-    List ltCloud = new ArrayList<String>();//联通云
-    List lcClout = new ArrayList<String>();//浪潮云
-    List dxCloud = new ArrayList<String>();//电信云
-    List counts = new ArrayList<String>();//总计
+    String[] tjCloud = new String[12];//太极云
+    String[] jsCloud = new String[12];//金山云
+    String[] sxCloud = new String[12];//首信云
+    String[] ltCloud = new String[12];//联通云
+    String[] lcCloud = new String[12];//浪潮云
+    String[] dxCloud = new String[12];//电信云
+    String[] counts = new String[6];//总计
 
     public CloudResources() {
     }
 
-    public CloudResources(List tjCloud, List jsCloud, List sxCloud, List ltCloud, List lcClout, List dxCloud, List counts) {
-        this.tjCloud = tjCloud;
-        this.jsCloud = jsCloud;
-        this.sxCloud = sxCloud;
-        this.ltCloud = ltCloud;
-        this.lcClout = lcClout;
-        this.dxCloud = dxCloud;
-        this.counts = counts;
-    }
 
-    public List getTjCloud() {
+    public String[] getTjCloud() {
         return tjCloud;
     }
 
-    public void setTjCloud(List tjCloud) {
+    public void setTjCloud(String[] tjCloud) {
         this.tjCloud = tjCloud;
     }
 
-    public List getJsCloud() {
+    public String[] getJsCloud() {
         return jsCloud;
     }
 
-    public void setJsCloud(List jsCloud) {
+    public void setJsCloud(String[] jsCloud) {
         this.jsCloud = jsCloud;
     }
 
-    public List getSxCloud() {
+    public String[] getSxCloud() {
         return sxCloud;
     }
 
-    public void setSxCloud(List sxCloud) {
+    public void setSxCloud(String[] sxCloud) {
         this.sxCloud = sxCloud;
     }
 
-    public List getLtCloud() {
+    public String[] getLtCloud() {
         return ltCloud;
     }
 
-    public void setLtCloud(List ltCloud) {
+    public void setLtCloud(String[] ltCloud) {
         this.ltCloud = ltCloud;
     }
 
-    public List getLcClout() {
-        return lcClout;
+    public String[] getLcCloud() {
+        return lcCloud;
     }
 
-    public void setLcClout(List lcClout) {
-        this.lcClout = lcClout;
+    public void setLcCloud(String[] lcCloud) {
+        this.lcCloud = lcCloud;
     }
 
-    public List getDxCloud() {
+    public String[] getDxCloud() {
         return dxCloud;
     }
 
-    public void setDxCloud(List dxCloud) {
+    public void setDxCloud(String[] dxCloud) {
         this.dxCloud = dxCloud;
     }
 
-    public List getCounts() {
+    public String[] getCounts() {
         return counts;
     }
 
-    public void setCounts(List counts) {
+    public void setCounts(String[] counts) {
         this.counts = counts;
     }
 
     @Override
     public String toString() {
         return "CloudResources{" +
-                "tjCloud=" + tjCloud +
-                ", jsCloud=" + jsCloud +
-                ", sxCloud=" + sxCloud +
-                ", ltCloud=" + ltCloud +
-                ", lcClout=" + lcClout +
-                ", dxCloud=" + dxCloud +
-                ", counts=" + counts +
+                "tjCloud=" + Arrays.toString(tjCloud) +
+                ", jsCloud=" + Arrays.toString(jsCloud) +
+                ", sxCloud=" + Arrays.toString(sxCloud) +
+                ", ltCloud=" + Arrays.toString(ltCloud) +
+                ", lcCloud=" + Arrays.toString(lcCloud) +
+                ", dxCloud=" + Arrays.toString(dxCloud) +
+                ", counts=" + Arrays.toString(counts) +
                 '}';
     }
 }

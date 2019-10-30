@@ -4,6 +4,9 @@ import com.wxy.pojo.entity.Client;
 import com.wxy.pojo.entity.Condition;
 import com.wxy.pojo.entity.Sys;
 import com.wxy.pojo.entity.User;
+import com.wxy.pojo.resource.CloudResources;
+import com.wxy.pojo.resource.PhysicalDevice;
+import com.wxy.pojo.resource.Total;
 import org.apache.poi.POIXMLDocument;
 import org.apache.poi.POIXMLTextExtractor;
 import org.apache.poi.hwpf.extractor.WordExtractor;
@@ -172,7 +175,10 @@ public class Word {
      * @param word
      * @return
      */
-    public static void splitResource(String word){
+    public static CloudResources splitResource(String word){
+        Total total = new Total();
+        CloudResources cloudResources = new CloudResources();
+        PhysicalDevice physicalDevice = new PhysicalDevice();
         String tjCloud = word.split("太极云")[4];
         String wlCloud = tjCloud.split("云平台物理设备情况")[0];
         String jscloud = wlCloud.split("金山云")[0];//太极云
@@ -184,11 +190,27 @@ public class Word {
         String lcCloud = ltCloud1.split("浪潮云")[0];//联通云
         String lcCloud1 = ltCloud1.split("浪潮云")[1];
         String dxCloud = lcCloud1.split("电信云")[0];//浪潮云
+        String dxCloud1 = lcCloud1.split("电信云")[0];//电信云
 
 
 
+        String[] s1 = jscloud.split("\t");
+        String[] s2 = sxCloud.split("\t");
+        String[] s3 = ltCloud.split("\t");
+        String[] s4 = lcCloud.split("\t");
+        String[] s5 = dxCloud.split("\t");
+        String[] s6 = dxCloud1.split("\t");
 
 
+        cloudResources.setTjCloud(s1);
+        cloudResources.setJsCloud(s2);
+        cloudResources.setSxCloud(s3);
+        cloudResources.setLtCloud(s4);
+        cloudResources.setLcCloud(s5);
+        cloudResources.setDxCloud(s6);
+
+
+        return cloudResources;
 
     }
 
