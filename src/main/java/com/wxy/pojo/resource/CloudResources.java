@@ -12,6 +12,7 @@ import java.util.List;
  * @Version 1.0
  */
 public class CloudResources {
+    private String time;
     String[] tjCloud = new String[12];//太极云
     String[] jsCloud = new String[12];//金山云
     String[] sxCloud = new String[12];//首信云
@@ -23,6 +24,13 @@ public class CloudResources {
     public CloudResources() {
     }
 
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 
     public String[] getTjCloud() {
         return tjCloud;

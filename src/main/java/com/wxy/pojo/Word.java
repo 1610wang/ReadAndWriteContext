@@ -106,7 +106,6 @@ public class Word {
      * @return
      */
     public static Condition splitWord(String word){
-        System.out.println(word);
         Condition condition = new Condition();
         Sys sys = new Sys();
         User user = new User();
@@ -179,8 +178,9 @@ public class Word {
         Total total = new Total();
         CloudResources cloudResources = new CloudResources();
         PhysicalDevice physicalDevice = new PhysicalDevice();
-        String tjCloud = word.split("太极云")[4];
-        String wlCloud = tjCloud.split("云平台物理设备情况")[0];
+        String tjCloud = word.split("资源使用情况")[1];
+        String temp = tjCloud.split("太极云")[1];
+        String wlCloud = temp.split("云平台物理设备情况")[0];
         String jscloud = wlCloud.split("金山云")[0];//太极云
         String jscloud1 = wlCloud.split("金山云")[1];
         String sxCloud =jscloud1.split("首信云")[0];//金山云

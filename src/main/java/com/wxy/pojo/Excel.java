@@ -2,6 +2,7 @@ package com.wxy.pojo;
 
 import com.wxy.pojo.entity.Serurity;
 import com.wxy.pojo.entity.Weekly;
+import com.wxy.pojo.resource.CloudResources;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -23,7 +24,7 @@ public class Excel {
      *  创建一个excel文件并将分析内容写入其中
      * @param path excel文件目标地址
      */
-    public static void WriteContent(List<Weekly> weeklies, List<Serurity> serurities,String path){
+    public static void WriteContent(List<CloudResources> cloudResources,List<Weekly> weeklies, List<Serurity> serurities, String path){
         //第一步，创建一个workbook对应一个excel文件
         HSSFWorkbook workbook = new HSSFWorkbook();
         //入云用户和系统情况
@@ -48,6 +49,37 @@ public class Excel {
         }
         //资源使用情况
         HSSFSheet sheet2 =creatSecSheet(workbook);
+        int q = 3;
+        for (CloudResources cloudResource : cloudResources) {
+            HSSFRow row1 = sheet2.createRow(q);
+            row1.createCell(0).setCellValue(cloudResource.getTime());
+            int j = 2;
+            for (String s : cloudResource.getTjCloud()) {
+                row1.createCell(j).setCellValue(s);
+                j+=7;
+            }
+            int n = 3;
+            for (String s : cloudResource.getJsCloud()) {
+                row1.createCell(n).setCellValue(s);
+                n+=7;
+            }
+            int m = 4;
+            for (String s : cloudResource.getSxCloud()) {
+                row1.createCell(m).setCellValue(s);
+                m+=7;
+            }
+            int o = 5;
+            for (String s : cloudResource.getLtCloud()) {
+                row1.createCell(o).setCellValue(s);
+                o+=7;
+            }
+            int p = 6;
+            for (String s : cloudResource.getLcCloud()) {
+                row1.createCell(p).setCellValue(s);
+                p += 7;
+            }
+            q++;
+        }
         //云内系统排名时间时间
         String[] cellNames = {"时间（周）","系统访问总量前10名"};
         HSSFSheet sheet3 = creatSheet(workbook,"云内系统排名时间时间",cellNames);
@@ -265,6 +297,6 @@ public class Excel {
                 m++;
             }
         }
-        return null;
+        return sheet;
     }
 }

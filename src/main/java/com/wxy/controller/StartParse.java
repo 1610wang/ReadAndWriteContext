@@ -5,6 +5,7 @@ import com.wxy.pojo.Winrar;
 import com.wxy.pojo.Word;
 import com.wxy.pojo.entity.Serurity;
 import com.wxy.pojo.entity.Weekly;
+import com.wxy.pojo.resource.CloudResources;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -23,6 +24,7 @@ public class StartParse {
 
     public static List<Weekly> weeklies = new ArrayList<>();
     public static List<Serurity> serurities = new ArrayList<>();
+    public static List<CloudResources> cloudResources = new ArrayList<>();
     public static void main(String[] args) throws Exception {
         //根目录
         String OrginPath = "C:\\Users\\Administrator\\Desktop\\驾驶舱1014.rar";
@@ -69,7 +71,9 @@ public class StartParse {
                             weekly.setCondition(Word.splitWord(Word.docxGetText(path+newPathFile)));
                             weekly.setDateTime(Word.getTime(path+newPathFile));
                             weeklies.add(weekly);
-
+                            CloudResources cloud = Word.splitResource(Word.docxGetText(path+newPathFile));
+                            cloud.setTime(Word.getTime(path+newPathFile));
+                            cloudResources.add(cloud);
                         }else if(isMatch2==true){
                             /*安全监控报告*/
                             Serurity serurity = new Serurity();
@@ -86,7 +90,7 @@ public class StartParse {
             }
         }
 
-        Excel.WriteContent(weeklies,serurities,"C:\\Users\\Administrator\\Desktop\\demo.xls");
+        Excel.WriteContent(cloudResources,weeklies,serurities,"C:\\Users\\Administrator\\Desktop\\demo.xls");
         return path;
     }
 }
