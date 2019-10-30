@@ -6,6 +6,9 @@ import com.wxy.pojo.Word;
 import com.wxy.pojo.entity.Serurity;
 import com.wxy.pojo.entity.Weekly;
 import com.wxy.pojo.resource.CloudResources;
+import com.wxy.pojo.resource.PhysicalDevice;
+import com.wxy.pojo.resource.Total;
+import org.apache.poi.ss.formula.functions.T;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -24,7 +27,7 @@ public class StartParse {
 
     public static List<Weekly> weeklies = new ArrayList<>();
     public static List<Serurity> serurities = new ArrayList<>();
-    public static List<CloudResources> cloudResources = new ArrayList<>();
+    public static List<Total> totals = new ArrayList<>();
     public static void main(String[] args) throws Exception {
         //根目录
         String OrginPath = "C:\\Users\\Administrator\\Desktop\\驾驶舱1014.rar";
@@ -66,14 +69,22 @@ public class StartParse {
                         boolean isMatch2 = Pattern.matches(pattern2, f1.getName());
 
                         if(isMatch==true){
+                            String word = Word.docxGetText(path+newPathFile);
                             /*工作周报*/
                             Weekly weekly = new Weekly();
-                            weekly.setCondition(Word.splitWord(Word.docxGetText(path+newPathFile)));
+                            weekly.setCondition(Word.splitWord(word));
                             weekly.setDateTime(Word.getTime(path+newPathFile));
                             weeklies.add(weekly);
-                            CloudResources cloud = Word.splitResource(Word.docxGetText(path+newPathFile));
+                            /*资源使用情况*/
+                            CloudResources cloud = Word.splitResource(word);
                             cloud.setTime(Word.getTime(path+newPathFile));
-                            cloudResources.add(cloud);
+                            /*物理设备使用*/
+                            PhysicalDevice physicalDevice = new PhysicalDevice();
+                            physicalDevice = Word.splitPhysicalDevice(word);
+                            Total total = new Total();
+                            total.setCloudRes(cloud);
+                            total.setPhyDev(physicalDevice);
+                            totals.add(total);
                         }else if(isMatch2==true){
                             /*安全监控报告*/
                             Serurity serurity = new Serurity();
@@ -90,7 +101,7 @@ public class StartParse {
             }
         }
 
-        Excel.WriteContent(cloudResources,weeklies,serurities,"C:\\Users\\Administrator\\Desktop\\demo.xls");
+        Excel.WriteContent(totals,weeklies,serurities,"C:\\Users\\Administrator\\Desktop\\数据提取内容.xls");
         return path;
     }
 }

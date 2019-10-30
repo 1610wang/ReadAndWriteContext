@@ -12,7 +12,7 @@ import java.io.File;
 public class Main {
 
     public static void main(String[] args) {
-
-
+        String a = Word.getText("C:\\Users\\Administrator\\Desktop\\hello\\驾驶舱1014\\20190505\\北京政务云工作周报（20190505第168期）.docx");
+        System.out.println(a);
     }
 }

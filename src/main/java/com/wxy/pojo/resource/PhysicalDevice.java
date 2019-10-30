@@ -1,6 +1,7 @@
 package com.wxy.pojo.resource;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -80,5 +81,18 @@ public class PhysicalDevice {
 
     public void setCounts(String[] counts) {
         this.counts = counts;
+    }
+
+    @Override
+    public String toString() {
+        return "PhysicalDevice{" +
+                "tjCloud=" + Arrays.toString(tjCloud) +
+                ", jsCloud=" + Arrays.toString(jsCloud) +
+                ", sxCloud=" + Arrays.toString(sxCloud) +
+                ", ltCloud=" + Arrays.toString(ltCloud) +
+                ", lcClout=" + Arrays.toString(lcClout) +
+                ", dxCloud=" + Arrays.toString(dxCloud) +
+                ", counts=" + Arrays.toString(counts) +
+                '}';
     }
 }

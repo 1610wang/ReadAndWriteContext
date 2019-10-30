@@ -3,6 +3,8 @@ package com.wxy.pojo;
 import com.wxy.pojo.entity.Serurity;
 import com.wxy.pojo.entity.Weekly;
 import com.wxy.pojo.resource.CloudResources;
+import com.wxy.pojo.resource.PhysicalDevice;
+import com.wxy.pojo.resource.Total;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -24,7 +26,7 @@ public class Excel {
      *  创建一个excel文件并将分析内容写入其中
      * @param path excel文件目标地址
      */
-    public static void WriteContent(List<CloudResources> cloudResources,List<Weekly> weeklies, List<Serurity> serurities, String path){
+    public static void WriteContent(List<Total> totals, List<Weekly> weeklies, List<Serurity> serurities, String path){
         //第一步，创建一个workbook对应一个excel文件
         HSSFWorkbook workbook = new HSSFWorkbook();
         //入云用户和系统情况
@@ -50,36 +52,77 @@ public class Excel {
         //资源使用情况
         HSSFSheet sheet2 =creatSecSheet(workbook);
         int q = 3;
-        for (CloudResources cloudResource : cloudResources) {
+        for (Total total : totals) {
+            CloudResources cloudResource = total.getCloudRes();
+            PhysicalDevice device = total.getPhyDev();
             HSSFRow row1 = sheet2.createRow(q);
             row1.createCell(0).setCellValue(cloudResource.getTime());
             int j = 2;
-            for (String s : cloudResource.getTjCloud()) {
-                row1.createCell(j).setCellValue(s);
+            for (int i1 = 1; i1 < cloudResource.getTjCloud().length; i1++) {
+                row1.createCell(j).setCellValue(cloudResource.getTjCloud()[i1]);
                 j+=7;
             }
+
             int n = 3;
-            for (String s : cloudResource.getJsCloud()) {
-                row1.createCell(n).setCellValue(s);
+            for (int i1 = 1; i1 < cloudResource.getJsCloud().length; i1++) {
+                row1.createCell(n).setCellValue(cloudResource.getJsCloud()[i1]);
                 n+=7;
             }
             int m = 4;
-            for (String s : cloudResource.getSxCloud()) {
-                row1.createCell(m).setCellValue(s);
+            for (int i1 = 1; i1 < cloudResource.getSxCloud().length; i1++) {
+                row1.createCell(m).setCellValue(cloudResource.getSxCloud()[i1]);
                 m+=7;
             }
             int o = 5;
-            for (String s : cloudResource.getLtCloud()) {
-                row1.createCell(o).setCellValue(s);
+            for (int i1 = 1; i1 < cloudResource.getLtCloud().length; i1++) {
+                row1.createCell(o).setCellValue(cloudResource.getLtCloud()[i1]);
                 o+=7;
             }
+
             int p = 6;
-            for (String s : cloudResource.getLcCloud()) {
-                row1.createCell(p).setCellValue(s);
-                p += 7;
+            for (int i1 = 1; i1 < cloudResource.getLcCloud().length; i1++) {
+                row1.createCell(p).setCellValue(cloudResource.getLcCloud()[i1]);
+                p+=7;
+            }
+            int k = 7;
+            for (int i1 = 1; i1 < cloudResource.getDxCloud().length; i1++) {
+                row1.createCell(k).setCellValue(cloudResource.getDxCloud()[i1]);
+                k+=7;
+            }
+            int a = 86;
+            for (String s : device.getTjCloud()) {
+                row1.createCell(a).setCellValue(s);
+                a += 7;
+            }
+            int b = 87;
+            for (String s : device.getJsCloud()) {
+                row1.createCell(b).setCellValue(s);
+                b += 7;
+            }
+            int c = 88;
+            for (String s : device.getSxCloud()) {
+                row1.createCell(c).setCellValue(s);
+                c+= 7;
+            }
+            int d = 89;
+            for (String s : device.getLtCloud()) {
+                row1.createCell(d).setCellValue(s);
+                d += 7;
+            }
+            int e = 90;
+            for (String s : device.getLcClout()) {
+                row1.createCell(e).setCellValue(s);
+                e += 7;
+            }
+            int f = 91;
+            for (String s : device.getDxCloud()) {
+                row1.createCell(f).setCellValue(s);
+                f += 7;
             }
             q++;
         }
+
+
         //云内系统排名时间时间
         String[] cellNames = {"时间（周）","系统访问总量前10名"};
         HSSFSheet sheet3 = creatSheet(workbook,"云内系统排名时间时间",cellNames);
@@ -259,13 +302,13 @@ public class Excel {
         cell6.setCellValue("计算资源池服务器（台）");
         cell6.setCellStyle(style);
         HSSFCell cell7 = row1.createCell(99);
-        cell7.setCellValue("租用物理服务器（台）");
+        cell7.setCellValue("其他物理设备数量（台）");
         cell7.setCellStyle(style);
         HSSFCell cell8 = row1.createCell(106);
-        cell8.setCellValue("比例");
+        cell8.setCellValue("租用物理服务器（台)");
         cell8.setCellStyle(style);
         HSSFCell cell9 = row1.createCell(113);
-        cell9.setCellValue("其他物理设备数量（台）");
+        cell9.setCellValue("比例");
         cell9.setCellStyle(style);
         //设置第二行和第三行表头
         HSSFRow row2 = sheet.createRow(1);

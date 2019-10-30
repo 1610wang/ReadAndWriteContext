@@ -141,6 +141,10 @@ public class Word {
         client.setLtCloud(m.replaceAll("").trim());
         m = p.matcher(clients[4]);
         client.setLcCloud(m.replaceAll("").trim());
+        if(clients.length > 5){
+            m = p.matcher(clients[5]);
+            client.setDxCloud(m.replaceAll("").trim());
+        }
         //新增委办局
         m = p.matcher(temp[6]);
         condition.setNewOffice(m.replaceAll("").trim());
@@ -190,8 +194,11 @@ public class Word {
         String lcCloud = ltCloud1.split("浪潮云")[0];//联通云
         String lcCloud1 = ltCloud1.split("浪潮云")[1];
         String dxCloud = lcCloud1.split("电信云")[0];//浪潮云
-        String dxCloud1 = lcCloud1.split("电信云")[0];//电信云
-
+        String[] dx = lcCloud1.split("电信云");//电信云
+        String dxCloud1 = "";
+        if(dx.length > 1){
+            dxCloud1 = dx[1].split("云服务商")[0].trim();
+        }
 
 
         String[] s1 = jscloud.split("\t");
@@ -209,9 +216,52 @@ public class Word {
         cloudResources.setLcCloud(s5);
         cloudResources.setDxCloud(s6);
 
-
         return cloudResources;
 
+    }
+    /**
+     *  云平台物理设备
+     */
+    public static PhysicalDevice splitPhysicalDevice(String word){
+        Total total = new Total();
+        PhysicalDevice physicalDevice = new PhysicalDevice();
+        String pdCloud = word.split("云平台物理设备情况")[1];
+        String pdCloud1 = pdCloud.split("云服务商排名情况")[0];
+        String tjCloud = pdCloud1.split("太极云")[1];
+        String tjCloud1 = tjCloud.split("金山云")[0];//太极云
+        String jsCloud = tjCloud.split("金山云")[1];
+        String jsCloud1 = jsCloud.split("首信云")[0];
+        String sxCloud = jsCloud.split("首信云")[1];
+        String sxCloud1 = sxCloud.split("联通云")[0];
+        String ltCloud = sxCloud.split("联通云")[1];
+        String ltCloud1 = ltCloud.split("浪潮云")[0];
+        String lcCloud1 = ltCloud.split("浪潮云")[1].split("电信云")[0];
+        String[] temp = ltCloud.split("浪潮云")[1].split("电信云");
+        String dxCloud = "";
+        if(temp.length > 1){
+            dxCloud = temp[1].split("云服务商")[0].trim();
+        }
+        tjCloud1 = tjCloud1.trim();
+        jsCloud1 = jsCloud1.trim();
+        sxCloud1 = sxCloud1.trim();
+        ltCloud1 = ltCloud1.trim();
+        lcCloud1 = lcCloud1.trim();
+
+
+        String[] s1 = tjCloud1.split("\t");
+        String[] s2 = jsCloud1.split("\t");
+        String[] s3 = sxCloud1.split("\t");
+        String[] s4 = ltCloud1.split("\t");
+        String[] s5 = lcCloud1.split("\t");
+        String[] s6 = dxCloud.split("\t");
+        physicalDevice.setTjCloud(s1);
+        physicalDevice.setJsCloud(s2);
+        physicalDevice.setSxCloud(s3);
+        physicalDevice.setLtCloud(s4);
+        physicalDevice.setLcClout(s5);
+        physicalDevice.setDxCloud(s6);
+
+        return physicalDevice;
     }
 
 }
