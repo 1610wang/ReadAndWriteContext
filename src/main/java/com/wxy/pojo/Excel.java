@@ -256,6 +256,15 @@ public class Excel {
                 }
             }
         }
+        int m = 85;
+        for (int j = 0; j < 5; j++) {
+            for (String s : conten) {
+                HSSFCell hssfCell3 = row3.createCell(m);
+                hssfCell3.setCellValue(s);
+                hssfCell3.setCellStyle(style);
+                m++;
+            }
+        }
         return null;
     }
 }
