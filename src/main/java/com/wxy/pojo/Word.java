@@ -158,7 +158,7 @@ public class Word {
             newSys1 = newSys.split("本周下线业务系统")[0];
             outSys = newSys.split("本周下线业务系统")[1];
         }
-        m = p.matcher(newSys3);
+                m = p.matcher(newSys3);
         condition.setNewOnlineSys(m.replaceAll("".trim()));
         //退出业务系统
 
