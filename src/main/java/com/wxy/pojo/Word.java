@@ -2,6 +2,7 @@ package com.wxy.pojo;
 
 import com.wxy.pojo.entity.Client;
 import com.wxy.pojo.entity.Condition;
+import com.wxy.pojo.entity.Sys;
 import com.wxy.pojo.entity.User;
 import org.apache.poi.POIXMLDocument;
 import org.apache.poi.POIXMLTextExtractor;
@@ -83,7 +84,6 @@ public class Word {
     public static String getCount(String buffer){
         String[] s = buffer.split("威胁");
         String[] s1 = s[1].split("次");
-        System.out.println(s1[0]);
         return s1[0];
     }
 
@@ -93,6 +93,7 @@ public class Word {
     public static String getTime(String path){
         File file = new File(path);
         String fileName = file.getName();
+
         return fileName;
     }
 
@@ -103,12 +104,18 @@ public class Word {
      */
     public static Condition splitWord(String word){
         Condition condition = new Condition();
+        Sys sys = new Sys();
         User user = new User();
         Client client = new Client();
         String[] temp = word.split("\n");
         String[] strings = temp[5].split("[（]");
         String regEx="[^0-9]";
         Pattern p = Pattern.compile(regEx);
+        //入云系统总数
+        String ruCloud = word.split("入云系统")[1];
+        String ruCloud1 = ruCloud.split("个")[0];
+        sys.setCount(ruCloud1);
+        condition.setSystem(sys);
         //新增业务系统
         Matcher m = p.matcher(temp[7]);
         condition.setNewServiceSys(m.replaceAll("").trim());
@@ -135,10 +142,24 @@ public class Word {
         m = p.matcher(temp[6]);
         condition.setNewOffice(m.replaceAll("").trim());
         //新上线系统
-        m = p.matcher(temp[18]);
+        String newSys = word.split("本周新上线业务系统")[1];
+        String newSys3 = newSys.split("个")[0];
+        String newSys1 = "";
+        String outSys= "";
+        String[] Sys = newSys.split("本周下线业务系统");
+        if(Sys.length == 1){
+            newSys1 = newSys.split("本周退出业务系统")[0];
+            outSys = newSys.split("本周退出业务系统")[1];
+        }else {
+            newSys1 = newSys.split("本周下线业务系统")[0];
+            outSys = newSys.split("本周下线业务系统")[1];
+        }
+        m = p.matcher(newSys3);
         condition.setNewOnlineSys(m.replaceAll("".trim()));
         //退出业务系统
-        m = p.matcher(temp[19]);
+
+        String outSys1 = outSys.split("个")[0];
+        m = p.matcher(outSys1);
         condition.setExitSys(m.replaceAll("").trim());
         condition.setUser(user);
         user.setClient(client);

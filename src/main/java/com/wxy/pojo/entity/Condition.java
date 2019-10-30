@@ -5,7 +5,7 @@ package com.wxy.pojo.entity;
  */
 public class Condition {
     private User user; //用户
-    private System system; //系统
+    private Sys sys; //系统
     private String newOffice; //新增委办局
     private String newServiceSys; //新增业务系统
     private String newOnlineSys; //新上线系统
@@ -14,9 +14,9 @@ public class Condition {
     public Condition() {
     }
 
-    public Condition(User user, System system, String newOffice, String newServiceSys, String newOnlineSys, String exitSys) {
+    public Condition(User user, Sys sys, String newOffice, String newServiceSys, String newOnlineSys, String exitSys) {
         this.user = user;
-        this.system = system;
+        this.sys = sys;
         this.newOffice = newOffice;
         this.newServiceSys = newServiceSys;
         this.newOnlineSys = newOnlineSys;
@@ -31,12 +31,12 @@ public class Condition {
         this.user = user;
     }
 
-    public System getSystem() {
-        return system;
+    public Sys getSys() {
+        return sys;
     }
 
-    public void setSystem(System system) {
-        this.system = system;
+    public void setSystem(Sys sys) {
+        this.sys = sys;
     }
 
     public String getNewOffice() {
@@ -76,7 +76,7 @@ public class Condition {
     public String toString() {
         return "Condition{" +
                 "user=" + user +
-                ", system=" + system +
+                ", sys=" + sys +
                 ", newOffice='" + newOffice + '\'' +
                 ", newServiceSys='" + newServiceSys + '\'' +
                 ", newOnlineSys='" + newOnlineSys + '\'' +

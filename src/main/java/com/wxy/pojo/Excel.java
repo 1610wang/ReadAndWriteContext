@@ -28,7 +28,7 @@ public class Excel {
         HSSFWorkbook workbook = new HSSFWorkbook();
         //入云用户和系统情况
         HSSFSheet sheet1 = creatFirSheet(workbook);
-        int i = 4;
+        int i = 3;
         for(Weekly weekly : weeklies){
             HSSFRow row1 = sheet1.createRow(i + 1);
             row1.createCell(0).setCellValue(weekly.getDateTime());
@@ -39,10 +39,11 @@ public class Excel {
             row1.createCell(6).setCellValue(weekly.getCondition().getUser().getClient().getLtCloud());
             row1.createCell(7).setCellValue(weekly.getCondition().getUser().getClient().getLcCloud());
             row1.createCell(8).setCellValue(weekly.getCondition().getUser().getClient().getDxCloud());
+            row1.createCell(9).setCellValue(weekly.getCondition().getSys().getCount());
             row1.createCell(16).setCellValue(weekly.getCondition().getNewOffice());
             row1.createCell(17).setCellValue(weekly.getCondition().getNewServiceSys());
-            row1.createCell(16).setCellValue(weekly.getCondition().getNewOnlineSys());
-            row1.createCell(16).setCellValue(weekly.getCondition().getExitSys());
+            row1.createCell(18).setCellValue(weekly.getCondition().getNewOnlineSys());
+            row1.createCell(19).setCellValue(weekly.getCondition().getExitSys());
             i++;
         }
         //资源使用情况

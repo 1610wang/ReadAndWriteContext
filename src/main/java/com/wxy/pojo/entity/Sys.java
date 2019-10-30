@@ -1,25 +1,31 @@
 package com.wxy.pojo.entity;
 
 /**
+ * @Author: 王鑫垚
+ * @Description:
+ * @Date: Create in 10:05 2019/10/30
+ */
+public class Sys {
+/**
  * 系统类
  */
-public class System{
-    private Integer count;  //总计
+
+    private String count;  //总计
     private Client client;  //客户
 
-    public System() {
+    public Sys() {
     }
 
-    public System(Integer count, Client client) {
+    public Sys(String count, Client client) {
         this.count = count;
         this.client = client;
     }
 
-    public Integer getCount() {
+    public String getCount() {
         return count;
     }
 
-    public void setCount(Integer count) {
+    public void setCount(String count) {
         this.count = count;
     }
 
