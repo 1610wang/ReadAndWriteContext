@@ -103,6 +103,7 @@ public class Word {
      * @return
      */
     public static Condition splitWord(String word){
+        System.out.println(word);
         Condition condition = new Condition();
         Sys sys = new Sys();
         User user = new User();
@@ -164,6 +165,31 @@ public class Word {
         condition.setUser(user);
         user.setClient(client);
         return condition;
+    }
+
+    /**
+     * 解析获得资源使用情况
+     * @param word
+     * @return
+     */
+    public static void splitResource(String word){
+        String tjCloud = word.split("太极云")[4];
+        String wlCloud = tjCloud.split("云平台物理设备情况")[0];
+        String jscloud = wlCloud.split("金山云")[0];//太极云
+        String jscloud1 = wlCloud.split("金山云")[1];
+        String sxCloud =jscloud1.split("首信云")[0];//金山云
+        String sxCloud1 =jscloud1.split("首信云")[1];
+        String ltCloud  = sxCloud1.split("联通云")[0];//首信云
+        String ltCloud1  = sxCloud1.split("联通云")[1];
+        String lcCloud = ltCloud1.split("浪潮云")[0];//联通云
+        String lcCloud1 = ltCloud1.split("浪潮云")[1];
+        String dxCloud = lcCloud1.split("电信云")[0];//浪潮云
+
+
+
+
+
+
     }
 
 }
