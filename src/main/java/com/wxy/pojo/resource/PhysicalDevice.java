@@ -1,16 +1,16 @@
-package com.wxy.pojo.resource.resource;
+package com.wxy.pojo.resource;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @ClassName CloudResources
- * @Description 云平台资源
+ * @ClassName PhysicalDevice
+ * @Description 云平台物理设备情况
  * @Author 张喜春
- * @Date 2019/10/30 10:47
+ * @Date 2019/10/30 10:56
  * @Version 1.0
  */
-public class CloudResources {
+public class PhysicalDevice {
     List tjCloud = new ArrayList<String>();//太极云
     List jsCloud = new ArrayList<String>();//金山云
     List sxCloud = new ArrayList<String>();//首信云
@@ -19,10 +19,10 @@ public class CloudResources {
     List dxCloud = new ArrayList<String>();//电信云
     List counts = new ArrayList<String>();//总计
 
-    public CloudResources() {
+    public PhysicalDevice() {
     }
 
-    public CloudResources(List tjCloud, List jsCloud, List sxCloud, List ltCloud, List lcClout, List dxCloud, List counts) {
+    public PhysicalDevice(List tjCloud, List jsCloud, List sxCloud, List ltCloud, List lcClout, List dxCloud, List counts) {
         this.tjCloud = tjCloud;
         this.jsCloud = jsCloud;
         this.sxCloud = sxCloud;
@@ -90,7 +90,7 @@ public class CloudResources {
 
     @Override
     public String toString() {
-        return "CloudResources{" +
+        return "PhysicalDevice{" +
                 "tjCloud=" + tjCloud +
                 ", jsCloud=" + jsCloud +
                 ", sxCloud=" + sxCloud +

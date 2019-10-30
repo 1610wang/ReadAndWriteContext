@@ -1,4 +1,4 @@
-package com.wxy.pojo.resource.resource;
+package com.wxy.pojo.resource;
 
 /**
  * @ClassName Total
