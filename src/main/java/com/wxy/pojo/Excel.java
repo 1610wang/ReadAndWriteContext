@@ -12,6 +12,7 @@ import org.apache.poi.ss.util.CellRangeAddress;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -27,7 +28,7 @@ public class Excel {
      *  创建一个excel文件并将分析内容写入其中
      * @param path excel文件目标地址
      */
-    public static void WriteContent(List<Total> totals, List<Weekly> weeklies, List<Serurity> serurities, String path){
+    public static void WriteContent(List<String[]> lists,List<Total> totals, List<Weekly> weeklies, List<Serurity> serurities, String path){
         //第一步，创建一个workbook对应一个excel文件
         HSSFWorkbook workbook = new HSSFWorkbook();
         //入云用户和系统情况
@@ -158,6 +159,26 @@ public class Excel {
         //云内系统排名时间时间
         String[] cellNames = {"时间（周）","系统访问总量前10名"};
         HSSFSheet sheet3 = creatSheet(workbook,"云内系统排名时间时间",cellNames);
+        int ll = 0;
+        for (String[] list : lists) {
+            HSSFRow row1 = sheet3.createRow(ll + 1);
+            if(list.length > 10){
+                int cc = 1;
+                for (int i1 = 0; i1 < list.length -1; i1+=2) {
+                    row1.createCell(cc).setCellValue(list[i1]);
+                    cc++;
+                    row1.createCell(cc).setCellValue(list[i1 +1]);
+                    cc ++;
+                }
+            }else {
+                int cc = 1;
+                for (String s : list) {
+                    row1.createCell(cc).setCellValue(s);
+                    cc +=2;
+                }
+            }
+            ll++;
+        }
 
         //安全监控报告1
         String[] cellName = {"时间（天）","受攻击威胁次数"};

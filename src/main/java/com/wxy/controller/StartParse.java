@@ -73,20 +73,20 @@ public class StartParse {
 
                         if(isMatch==true){
                             String word = Word.docxGetText(path+newPathFile);
-                            /*获取图片*/
-                            Pic.picOut(path+newPathFile,path);
-                            String ww = Sample.sample(path + "\\image5.png");
-                            if(ww.indexOf("云内业务系统访问总量前十") != -1){
-                                Word.num(ww);
-                            }else {
-                                ww = Sample.sample(path + "\\image10.png");
-                                if(ww.indexOf("云内业务系统访问总量前十") != -1){
-                                    Word.num(ww);
-                                }else {
-                                    ww = Sample.sample(path + "\\image11.png");
-                                    Word.num(ww);
-                                }
-                            }
+//                            /*获取图片*/
+//                            Pic.picOut(path+newPathFile,path);
+//                            String ww = Sample.sample(path + "\\image5.png");
+//                            if(ww.indexOf("云内业务系统访问总量前十") != -1){
+//                                Word.num(ww);
+//                            }else {
+//                                ww = Sample.sample(path + "\\image10.png");
+//                                if(ww.indexOf("云内业务系统访问总量前十") != -1){
+//                                    Word.num(ww);
+//                                }else {
+//                                    ww = Sample.sample(path + "\\image11.png");
+//                                    Word.num(ww);
+//                                }
+//                            }
 
                             /*工作周报*/
                             Weekly weekly = new Weekly();
@@ -121,7 +121,7 @@ public class StartParse {
             }
         }
 
-        Excel.WriteContent(totals,weeklies,serurities,"C:\\Users\\Administrator\\Desktop\\数据提取内容.xls");
+        Excel.WriteContent(Main.main(),totals,weeklies,serurities,"C:\\Users\\Administrator\\Desktop\\数据提取内容.xls");
         return path;
     }
 }
