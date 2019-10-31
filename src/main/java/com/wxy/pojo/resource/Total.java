@@ -10,13 +10,15 @@ package com.wxy.pojo.resource;
 public class Total {
     private CloudResources cloudRes; //云平台资源
     private PhysicalDevice phyDev; //云平台物理设备情况
+    private Rent rent;//云平台租赁情况
 
-    public Total() {
-    }
-
-    public Total(CloudResources cloudRes, PhysicalDevice phyDev) {
-        this.cloudRes = cloudRes;
-        this.phyDev = phyDev;
+    @Override
+    public String toString() {
+        return "Total{" +
+                "cloudRes=" + cloudRes +
+                ", phyDev=" + phyDev +
+                ", rent=" + rent +
+                '}';
     }
 
     public CloudResources getCloudRes() {
@@ -35,11 +37,11 @@ public class Total {
         this.phyDev = phyDev;
     }
 
-    @Override
-    public String toString() {
-        return "Total{" +
-                "cloudRes=" + cloudRes +
-                ", phyDev=" + phyDev +
-                '}';
+    public Rent getRent() {
+        return rent;
+    }
+
+    public void setRent(Rent rent) {
+        this.rent = rent;
     }
 }

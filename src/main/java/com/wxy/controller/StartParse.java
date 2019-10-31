@@ -1,20 +1,23 @@
 package com.wxy.controller;
 
-import com.wxy.pojo.Excel;
-import com.wxy.pojo.Winrar;
-import com.wxy.pojo.Word;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.wxy.pojo.*;
 import com.wxy.pojo.entity.Serurity;
 import com.wxy.pojo.entity.Weekly;
 import com.wxy.pojo.resource.CloudResources;
 import com.wxy.pojo.resource.PhysicalDevice;
+import com.wxy.pojo.resource.Rent;
 import com.wxy.pojo.resource.Total;
 import org.apache.poi.ss.formula.functions.T;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
+
 
 /**
  * @author 王鑫垚
@@ -70,6 +73,21 @@ public class StartParse {
 
                         if(isMatch==true){
                             String word = Word.docxGetText(path+newPathFile);
+                            /*获取图片*/
+                            Pic.picOut(path+newPathFile,path);
+                            String ww = Sample.sample(path + "\\image5.png");
+                            if(ww.indexOf("云内业务系统访问总量前十") != -1){
+                                Word.num(ww);
+                            }else {
+                                ww = Sample.sample(path + "\\image10.png");
+                                if(ww.indexOf("云内业务系统访问总量前十") != -1){
+                                    Word.num(ww);
+                                }else {
+                                    ww = Sample.sample(path + "\\image11.png");
+                                    Word.num(ww);
+                                }
+                            }
+
                             /*工作周报*/
                             Weekly weekly = new Weekly();
                             weekly.setCondition(Word.splitWord(word));
@@ -81,9 +99,11 @@ public class StartParse {
                             /*物理设备使用*/
                             PhysicalDevice physicalDevice = new PhysicalDevice();
                             physicalDevice = Word.splitPhysicalDevice(word);
+                            Rent rent = Word.rent(word);
                             Total total = new Total();
                             total.setCloudRes(cloud);
                             total.setPhyDev(physicalDevice);
+                            total.setRent(rent);
                             totals.add(total);
                         }else if(isMatch2==true){
                             /*安全监控报告*/

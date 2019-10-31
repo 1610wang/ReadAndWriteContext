@@ -6,6 +6,7 @@ import com.wxy.pojo.entity.Sys;
 import com.wxy.pojo.entity.User;
 import com.wxy.pojo.resource.CloudResources;
 import com.wxy.pojo.resource.PhysicalDevice;
+import com.wxy.pojo.resource.Rent;
 import com.wxy.pojo.resource.Total;
 import org.apache.poi.POIXMLDocument;
 import org.apache.poi.POIXMLTextExtractor;
@@ -263,5 +264,50 @@ public class Word {
 
         return physicalDevice;
     }
-
+    /**
+     *  云平台物理设备租赁
+     */
+    public static Rent rent(String word){
+        Rent rent = new Rent();
+        String w = "排名\t云服务商\t计算资源池服务器（台）\t租用物理服务器（台）\t比例";
+        String u = "排名\t云服务商　\t计算资源池服务器（台）\t租用物理服务器（台）\t比例";
+        String[] c = word.split(w);
+        if(c.length == 1){
+            c = word.split(u);
+        }
+        String pdCloud = c[1];
+        String pdCloud1 = pdCloud.split("举例")[0];
+        String[] temp = pdCloud1.split("\n");
+        String[] sxCloud = new String[5];
+        String[] dxCloud = new String[5];
+        String[] jsCloud = new String[5];
+        String[] lcCloud = new String[5];
+        String[] ltCloud = new String[5];
+        String[] tjCloud = new String[5];
+        for (String s : temp) {
+            if(s.indexOf("首信云") != -1){
+                sxCloud = s.split("\t");
+            }else if(s.indexOf("电信云") != -1){
+                dxCloud = s.split("\t");
+            }else if(s.indexOf("金山云") != -1){
+                jsCloud = s.split("\t");
+            }else if(s.indexOf("浪潮云") != -1){
+                lcCloud = s.split("\t");
+            }else if(s.indexOf("联通云") != -1){
+                ltCloud = s.split("\t");
+            }else {
+                tjCloud = s.split("\t");
+            }
+        }
+        rent.setDxCloud(dxCloud);
+        rent.setJsCloud(jsCloud);
+        rent.setLcClout(lcCloud);
+        rent.setLtCloud(ltCloud);
+        rent.setSxCloud(sxCloud);
+        rent.setTjCloud(tjCloud);
+        return rent;
+    }
+    public static void num(String ww){
+        System.out.println(ww);
+    }
 }

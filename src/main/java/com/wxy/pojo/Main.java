@@ -1,6 +1,11 @@
 package com.wxy.pojo;
 
-import java.io.File;
+import org.apache.poi.xwpf.usermodel.*;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * @author 王鑫垚
@@ -11,8 +16,8 @@ import java.io.File;
  */
 public class Main {
 
-    public static void main(String[] args) {
-        String a = Word.getText("C:\\Users\\Administrator\\Desktop\\hello\\驾驶舱1014\\20190505\\北京政务云工作周报（20190505第168期）.docx");
-        System.out.println(a);
+
+    public static void main(String[] args) throws FileNotFoundException, IOException{
+        Pic.picOut("C:\\Users\\Administrator\\Desktop\\北京政务云工作周报（20191011第190期）.docx","C:\\Users\\Administrator\\Desktop\\");
     }
 }

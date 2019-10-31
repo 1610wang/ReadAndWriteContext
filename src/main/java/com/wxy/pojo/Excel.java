@@ -4,6 +4,7 @@ import com.wxy.pojo.entity.Serurity;
 import com.wxy.pojo.entity.Weekly;
 import com.wxy.pojo.resource.CloudResources;
 import com.wxy.pojo.resource.PhysicalDevice;
+import com.wxy.pojo.resource.Rent;
 import com.wxy.pojo.resource.Total;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
@@ -55,6 +56,7 @@ public class Excel {
         for (Total total : totals) {
             CloudResources cloudResource = total.getCloudRes();
             PhysicalDevice device = total.getPhyDev();
+            Rent rent = total.getRent();
             HSSFRow row1 = sheet2.createRow(q);
             row1.createCell(0).setCellValue(cloudResource.getTime());
             int j = 2;
@@ -85,7 +87,7 @@ public class Excel {
                 p+=7;
             }
             int k = 7;
-            for (int i1 = 1; i1 < cloudResource.getDxCloud().length; i1++) {
+            for (int i1 = 0; i1 < cloudResource.getDxCloud().length; i1++) {
                 row1.createCell(k).setCellValue(cloudResource.getDxCloud()[i1]);
                 k+=7;
             }
@@ -118,6 +120,36 @@ public class Excel {
             for (String s : device.getDxCloud()) {
                 row1.createCell(f).setCellValue(s);
                 f += 7;
+            }
+            int g = 107;
+            for (int i1 = 3; i1 < rent.getTjCloud().length; i1++) {
+                row1.createCell(g).setCellValue(rent.getTjCloud()[i1]);
+                g += 7;
+            }
+            int h = 108;
+            for (int i1 = 3; i1 < rent.getJsCloud().length; i1++) {
+                row1.createCell(h).setCellValue(rent.getJsCloud()[i1]);
+                h += 7;
+            }
+            int l = 109;
+            for (int i1 = 3; i1 < rent.getSxCloud().length; i1++) {
+                row1.createCell(l).setCellValue(rent.getSxCloud()[i1]);
+                l += 7;
+            }
+            int aa = 110;
+            for (int i1 = 3; i1 < rent.getLtCloud().length; i1++) {
+                row1.createCell(aa).setCellValue(rent.getLtCloud()[i1]);
+                aa+=7;
+            }
+            int de = 111;
+            for (int i1 = 3; i1 < rent.getLcClout().length; i1++) {
+                row1.createCell(de).setCellValue(rent.getLcClout()[i1]);
+                de+=7;
+            }
+            int cc = 112;
+            for (int i1 = 3; i1 < rent.getDxCloud().length; i1++) {
+                row1.createCell(cc).setCellValue(rent.getDxCloud()[i1]);
+                cc+=7;
             }
             q++;
         }
